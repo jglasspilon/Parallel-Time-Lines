@@ -18,6 +18,14 @@ public class GameManager : MonoBehaviour
         m_CameraManager = GetComponent<CameraManager>();
         m_CameraManager.InitializeCamera();
     }
+
+    public void Update()
+    {
+        TestCameraAdding();
+        TestRemovePlayer();
+        m_CameraManager.RemoveCamera();
+        m_CameraManager.RemoveQuadrant();
+    }
 	#endregion
 
 	#region Public Functions
@@ -28,4 +36,25 @@ public class GameManager : MonoBehaviour
 
 	#region Private Function
 	#endregion
+
+    private void TestCameraAdding()
+    {
+        //get the player
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject newPlayer = Factory.PlayerFactory.CreateAlternatePlayer(player.transform);
+            m_CameraManager.AddCamera(newPlayer);
+        }
+    }
+
+    private void TestRemovePlayer()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            if(GameObject.FindGameObjectWithTag("AlternatePlayer") != null)
+                Destroy(GameObject.FindGameObjectWithTag("AlternatePlayer").gameObject);
+        }
+    }
 }

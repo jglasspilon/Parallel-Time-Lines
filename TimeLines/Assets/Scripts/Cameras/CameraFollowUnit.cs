@@ -7,6 +7,7 @@ public class CameraFollowUnit : MonoBehaviour
 {
     public Transform cameraTarget;
     public float easFactor = 0.3f;
+    public bool setupComplete = false;
 
     // Update is called once per frame
     void Update()
@@ -18,7 +19,6 @@ public class CameraFollowUnit : MonoBehaviour
             newPos.z = transform.position.z;
             transform.position = newPos;
         }
-        else
-            Debug.LogError("Camera Target Not Set!!");
+        Debug.Assert(cameraTarget != null, "Camera Target Not Set!");
     }
 }
