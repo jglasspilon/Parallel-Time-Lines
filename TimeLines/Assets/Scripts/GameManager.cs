@@ -21,22 +21,27 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-        TestCameraAdding();
-        TestRemovePlayer();
         m_CameraManager.RemoveCamera();
         m_CameraManager.RemoveQuadrant();
     }
-	#endregion
+    #endregion
 
-	#region Public Functions
-	#endregion
+    #region Public Functions
+    public void CreateAlternateTimeline(Transform spawnLocation)
+    {
+        GameObject newPlayer = Factory.PlayerFactory.CreateAlternatePlayer(spawnLocation);
+        m_CameraManager.AddCamera(newPlayer);
+    }
 
-	#region Protected Functions
-	#endregion
+    #endregion
 
-	#region Private Function
-	#endregion
+    #region Protected Functions
+    #endregion
 
+    #region Private Function
+    #endregion
+
+    #region Test Functions
     private void TestCameraAdding()
     {
         //get the player
@@ -57,4 +62,5 @@ public class GameManager : MonoBehaviour
                 Destroy(GameObject.FindGameObjectWithTag("AlternatePlayer").gameObject);
         }
     }
+    #endregion
 }

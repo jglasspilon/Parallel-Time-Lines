@@ -52,41 +52,10 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called at a fixed frame rate regardless of comp speed
     void FixedUpdate()
     {
-        //get the direction of the axis input
-        float horizontalStrength = Input.GetAxis("Horizontal");
-
-        //starts the running animation is the character is moving
-        if (horizontalStrength != 0 && grounded)
-        {
-            //walking animation start
-        }
-
-        //otherwise brings the animation back to idle
-        else {
-            //walking animation stop
-        }
-
-        if (horizontalStrength == 0)
-        {
-            //characterRB.velocity = new Vector2(0, characterRB.velocity.y);
-        }
-
-        //faces right
-        if (horizontalStrength > 0 && !facingRight)
-        {
-            flip();
-        }
-
-        //faces left
-        if (horizontalStrength < 0 && facingRight)
-        {
-            flip();
-        }
-
         if (!sideContact)
         {
             //move the character by a force proportional to the axis input strength
-            characterRB.AddForce(Vector2.right * horizontalStrength * moveForce);
+            characterRB.AddForce(Vector2.right * moveForce);
             if (Mathf.Abs(characterRB.velocity.x) >= maxSpeed)
             {
                 characterRB.velocity = new Vector2(Mathf.Sign(characterRB.velocity.x) * maxSpeed, characterRB.velocity.y);

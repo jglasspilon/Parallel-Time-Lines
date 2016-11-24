@@ -148,7 +148,7 @@ public class CameraManager : MonoBehaviour
         if (numberOfCameras < m_MaxCameras)
         {
             //create a new camera and set it up properly
-            GameObject newCameraObject = Factory.CameraFactory.CreateAlternateCamera();
+            GameObject newCameraObject = Factory.CameraFactory.CreateAlternateCamera(player.transform);
             Camera newCam = newCameraObject.GetComponent<Camera>();
             SetupCamera(newCam, player);
 

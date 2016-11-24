@@ -12,13 +12,13 @@ public static class Factory
         /// </summary>
         /// <param name="cameraID">ID to give to camera</param>
         /// <param name="playerTarget">Target player for camera</param>
-        public static GameObject CreateAlternateCamera()
+        public static GameObject CreateAlternateCamera(Transform target)
         {
             GameObject newCamera = new GameObject("Alternate Camera");
             newCamera.AddComponent<Camera>();
             newCamera.AddComponent<CameraFollowUnit>();
 
-            newCamera.transform.position = new Vector3(newCamera.transform.position.x, newCamera.transform.position.y, -10);
+            newCamera.transform.position = new Vector3(target.position.x, target.position.y, -15);
 
             return newCamera;
         }
@@ -32,6 +32,7 @@ public static class Factory
         public static GameObject CreateAlternatePlayer(Transform newTransform)
         {
             GameObject newPlayer = MonoBehaviour.Instantiate(Resources.Load("TempPlayer"), newTransform) as GameObject;
+            newPlayer.transform.position = newTransform.position;
             newPlayer.transform.parent = null;
             return newPlayer;
         }

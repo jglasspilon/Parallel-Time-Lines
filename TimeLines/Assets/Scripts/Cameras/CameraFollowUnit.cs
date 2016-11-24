@@ -19,6 +19,5 @@ public class CameraFollowUnit : MonoBehaviour
             newPos.z = transform.position.z;
             transform.position = newPos;
         }
-        Debug.Assert(cameraTarget != null, "Camera Target Not Set!");
     }
 }
