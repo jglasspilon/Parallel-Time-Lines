@@ -1,11 +1,7 @@
-﻿// Summary: controls the player behaviours and interactions
-
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerBehaviour : MonoBehaviour 
-{
+public class CharacterBehaviour : MonoBehaviour {
     //public variables to affect the jump strength, move strength and max move speed
     public float jumpForce = 1000f;
     public float moveForce = 200f;
@@ -17,40 +13,32 @@ public class PlayerBehaviour : MonoBehaviour
     public Transform bottomCheck;
 
     //checks the jumping, ground contact and direction the character is facing
-    bool isJumping = false;
-    bool grounded = false;
-    bool facingRight = true;
-    bool canMove = true;
-    bool sideContact = false;
+    protected bool isJumping = false;
+    protected bool grounded = false;
+    protected bool facingRight = true;
+    protected bool canMove = true;
+    protected bool sideContact = false;
 
     //references of components
-    Rigidbody characterRB;
+    protected Rigidbody characterRB;
 
     // Use this for initialization
     void Start()
     {
-
         //get the rigidbody2D component from the character
         characterRB = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-
         //checks if a line hits the ground layer between the character and the groundCheck object 
         grounded = Physics.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
         sideContact = (Physics.Linecast(topCheck.position, bottomCheck.position, 1 << LayerMask.NameToLayer("Ground")));
-
-        //if the jump button is pressed and the character is on the ground JUMP!
-        if (Input.GetButtonDown("Jump") && grounded)
-        {
-            isJumping = true;
-        }
     }
 
     // Update is called at a fixed frame rate regardless of comp speed
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (!sideContact)
         {
