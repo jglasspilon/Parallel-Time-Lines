@@ -15,11 +15,16 @@ public class AiBehaviour : CharacterBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        var shouldJump = Random.Range(0, 2) == 0;
-
-        if (col.gameObject.tag == "DecisionPoint" && grounded && shouldJump)
+        if(col.gameObject.tag == "DecisionPoint")
         {
-            characterRB.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
+            var shouldJump = Random.Range(0, 2) == 0;
+            isJumping = shouldJump && grounded;
+        }
+        else if(col.gameObject.tag == "Trap")
+        {
+            //10% of the time, it will die
+            var shouldAvoidTrap = Random.Range(0, 10) != 0;
+            isJumping = shouldAvoidTrap;
         }
     }
 }
