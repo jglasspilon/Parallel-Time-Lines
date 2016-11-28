@@ -9,6 +9,8 @@ public class CameraFollowUnit : MonoBehaviour
     public float easFactor = 0.3f;
     public bool setupComplete = false;
 
+    public bool playerCam = false;
+
     // Update is called once per frame
     void Update()
     {

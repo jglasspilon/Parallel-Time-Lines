@@ -15,7 +15,8 @@ public static class Factory
         public static GameObject CreateAlternateCamera(Transform target)
         {
             GameObject newCamera = new GameObject("Alternate Camera");
-            newCamera.AddComponent<Camera>();
+            Camera camera = newCamera.AddComponent<Camera>();
+
             newCamera.AddComponent<CameraFollowUnit>();
 
             newCamera.transform.position = new Vector3(target.position.x, target.position.y, -15);

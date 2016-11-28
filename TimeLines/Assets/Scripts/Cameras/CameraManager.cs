@@ -135,7 +135,7 @@ public class CameraManager : MonoBehaviour
     /// <summary>
     /// Adds a new camera to the scene and resizes all cameras appropriately
     /// </summary>
-    public void AddCamera(GameObject player)
+    public Camera AddCamera(GameObject player)
     {
         //keeps track of total number of cameras
         int numberOfCameras = 0;
@@ -176,12 +176,17 @@ public class CameraManager : MonoBehaviour
                 //add the cameras to the proper quadrant
                 m_Quadrants[targetQuadrant].AddCamera(newCam);
             }
+
+            return newCam;
         }
 
         else
         {
             Debug.LogWarning("Reached maximum number of cameras allowed!");
+            return null;
         }
+
+
     }
 
     //TODO: Julian create function to remove a camera which will resize appropriately at end
@@ -197,7 +202,7 @@ public class CameraManager : MonoBehaviour
         {
             for(int j = 0; j < m_Quadrants[i].Cameras.Count; j++)
             {
-                if (m_Quadrants[i].Cameras[j].GetComponent<CameraFollowUnit>().cameraTarget == null)
+                if (m_Quadrants[i].Cameras[j].GetComponent<CameraFollowUnit>().cameraTarget == null && !m_Quadrants[i].Cameras[j].GetComponent<CameraFollowUnit>().playerCam)
                 {
                     camerasToRemove.Add(m_Quadrants[i].Cameras[j]);
                     

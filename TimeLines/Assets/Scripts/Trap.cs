@@ -11,14 +11,8 @@ public class Trap : MonoBehaviour
 {
     void OnCollisionEnter(Collision other)
     {
-        if(other.transform.tag == "AlternatePlayer")
-        {
-            Destroy(other.gameObject);
-        }
+        
+        other.gameObject.GetComponent<CharacterBehaviour>().KillPlayer();
 
-        if(other.transform.tag == "Player")
-        {
-
-        }
     }
 }
