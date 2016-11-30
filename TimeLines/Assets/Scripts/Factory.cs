@@ -20,6 +20,8 @@ public static class Factory
             newCamera.AddComponent<CameraFollowUnit>();
 
             newCamera.transform.position = new Vector3(target.position.x, target.position.y, -15);
+            newCamera.GetComponent<Camera>().orthographic = true;
+            newCamera.GetComponent<Camera>().orthographicSize = 15;
 
             return newCamera;
         }
