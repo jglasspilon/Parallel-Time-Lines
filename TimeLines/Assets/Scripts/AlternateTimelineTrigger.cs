@@ -26,7 +26,7 @@ public class AlternateTimelineTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.transform.tag == "Player" || other.transform.tag == "AlternatePlayer")
+        if(other.transform.tag == "Player")
         {
             gameManager.CreateAlternateTimeline(target);
             foreach (GameObject trigger in siblingTriggers)
