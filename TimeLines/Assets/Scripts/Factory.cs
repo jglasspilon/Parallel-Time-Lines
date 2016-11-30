@@ -32,7 +32,7 @@ public static class Factory
     {
         public static GameObject CreateAlternatePlayer(Transform newTransform)
         {
-            GameObject newPlayer = MonoBehaviour.Instantiate(Resources.Load("TempPlayer"), newTransform) as GameObject;
+            GameObject newPlayer = MonoBehaviour.Instantiate(Resources.Load("TempPlayer")) as GameObject;
             newPlayer.transform.position = newTransform.position;
             newPlayer.transform.parent = null;
             return newPlayer;
