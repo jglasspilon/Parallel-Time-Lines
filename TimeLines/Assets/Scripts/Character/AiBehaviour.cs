@@ -23,7 +23,7 @@ public class AiBehaviour : CharacterBehaviour {
         else if(col.gameObject.tag == "Trap")
         {
             //10% of the time, it will die
-            var shouldAvoidTrap = Random.Range(0, 10) != 0;
+            var shouldAvoidTrap = Random.Range(0, 8) != 0;
             isJumping = shouldAvoidTrap;
         }
     }
