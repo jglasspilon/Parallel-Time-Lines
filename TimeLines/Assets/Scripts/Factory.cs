@@ -14,14 +14,8 @@ public static class Factory
         /// <param name="playerTarget">Target player for camera</param>
         public static GameObject CreateAlternateCamera(Transform target)
         {
-            GameObject newCamera = new GameObject("Alternate Camera");
-            Camera camera = newCamera.AddComponent<Camera>();
-
-            newCamera.AddComponent<CameraFollowUnit>();
-
+            GameObject newCamera = MonoBehaviour.Instantiate(Resources.Load("Alternate Camera")) as GameObject;
             newCamera.transform.position = new Vector3(target.position.x, target.position.y, -15);
-            newCamera.GetComponent<Camera>().orthographic = true;
-            newCamera.GetComponent<Camera>().orthographicSize = 15;
 
             return newCamera;
         }
