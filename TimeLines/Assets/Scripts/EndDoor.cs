@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EndDoor : MonoBehaviour {
 
+    public GameManager gameManager;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -14,13 +16,19 @@ public class EndDoor : MonoBehaviour {
 		
 	}
 
-    void OnCollisionEnter(Collision other)
-    {
-        other.gameObject.GetComponent<CharacterBehaviour>().KillPlayer();
-    }
-
     void OnTriggerEnter(Collider col)
     {
-        col.gameObject.GetComponent<CharacterBehaviour>().KillPlayer();
+        col.gameObject.GetComponent<CharacterBehaviour>().FadePlayer();
+        if (!gameManager.EndReached && col.gameObject.tag == "AlternatePlayer")
+        {
+            gameManager.EndReached = true;
+            gameManager.PlayerWon = false;
+        }
+        if (!gameManager.EndReached && col.gameObject.tag == "Player")
+        {
+            gameManager.EndReached = true;
+            gameManager.PlayerWon = true;
+            
+        }
     }
 }

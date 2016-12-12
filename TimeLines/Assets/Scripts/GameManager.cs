@@ -13,17 +13,28 @@ public class GameManager : MonoBehaviour
     public Canvas playerDeathUI;
     public Text you;
     public Text died;
-    public Text description;
+    public Text deathDescription;
+    public Text lost;
+    public Text lostDescription;
+    public Text win;
+    public Text winDescription;
     public Button backToHome;
-	#endregion
+    #endregion
 
-	
-	#region Unity Functions
+    #region Auto Properties
+    public bool EndReached { get; set; }
+    public bool PlayerWon { get; set; }
+    #endregion
+
+    #region Unity Functions
     public void Start()
     {
         //find all proper references and initialize all the controler scripts (i.e. cameraManager, etc)
         m_CameraManager = GetComponent<CameraManager>();
         m_CameraManager.InitializeCamera();
+
+        EndReached = false;
+        PlayerWon = false;
     }
 
     public void Update()
@@ -31,9 +42,16 @@ public class GameManager : MonoBehaviour
         m_CameraManager.RemoveCamera();
         m_CameraManager.RemoveQuadrant();
 
-        if(PlayerCam.GetComponent<CameraFollowUnit>().cameraTarget == null)
+        if (EndReached)
         {
-            StartCoroutine(DisplayDeathUI());
+            if(PlayerWon)
+                StartCoroutine(DisplayUI(you, win, winDescription));
+            else
+                StartCoroutine(DisplayUI(you, lost, lostDescription));
+        }
+        else if (!EndReached && PlayerCam.GetComponent<CameraFollowUnit>().cameraTarget == null)
+        {
+            StartCoroutine(DisplayUI(you, died, deathDescription));
         }
     }
     #endregion
@@ -49,21 +67,21 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Private Function
-    private IEnumerator DisplayDeathUI()
+    private IEnumerator DisplayUI(Text word1, Text word2, Text description)
     {
         playerDeathUI.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.5f);
 
-        you.gameObject.SetActive(true);
+        word1.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.3f);
 
-        died.gameObject.SetActive(true);
+        word2.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.5f);
 
         description.gameObject.SetActive(true);
         backToHome.gameObject.SetActive(true);
-
     }
+
     #endregion
 
     #region Test Functions

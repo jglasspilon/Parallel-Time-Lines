@@ -29,6 +29,9 @@ public class CharacterBehaviour : MonoBehaviour {
     private bool isDead = false;
     private bool goingUp = false;
 
+    //For goal
+    private bool shouldFade = false;
+
     // Use this for initialization
     void Start()
     {
@@ -56,6 +59,9 @@ public class CharacterBehaviour : MonoBehaviour {
             transform.position = Vector3.Lerp(transform.position, topPosition, 0.6f);
             transform.rotation = Quaternion.Euler(Vector3.Lerp(transform.rotation.eulerAngles, deathRotation, 1));
         }
+
+        if (shouldFade)
+            GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, GetComponent<SpriteRenderer>().color.a - 0.05f);
     }
 
     // Update is called at a fixed frame rate regardless of comp speed
@@ -94,6 +100,12 @@ public class CharacterBehaviour : MonoBehaviour {
 
             activeCam.GetComponent<CameraFollowUnit>().enabled = false;
         }
+    }
+
+    public void FadePlayer()
+    {
+        activeCam.GetComponent<CameraFollowUnit>().enabled = false;
+        shouldFade = true;
     }
 
     private IEnumerator DeathAnimation()
