@@ -12,10 +12,12 @@ public class CharacterBehaviour : MonoBehaviour {
     public Transform topCheck;
     public Transform bottomCheck;
     public Camera activeCam;
+    public AudioClip jumpSound;
+    public AudioClip landSound;
 
     //checks the jumping, ground contact and direction the character is facing
     protected bool isJumping = false;
-    protected bool grounded = false;
+    protected bool grounded = true;
     protected bool facingRight = true;
     protected bool canMove = true;
     protected bool sideContact = false;
@@ -38,8 +40,12 @@ public class CharacterBehaviour : MonoBehaviour {
     protected virtual void Update()
     {
         //checks if a line hits the ground layer between the character and the groundCheck object 
+        var previousGrounded = grounded;
         grounded = Physics.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
         sideContact = (Physics.Linecast(topCheck.position, bottomCheck.position, 1 << LayerMask.NameToLayer("Ground")));
+
+        if(!previousGrounded && grounded)
+            GetComponent<AudioSource>().PlayOneShot(landSound, 1);
 
         //for the death animation
         Vector3 topPosition = transform.position + (Vector3.up * 0.5f);
@@ -70,6 +76,7 @@ public class CharacterBehaviour : MonoBehaviour {
             //if the character jumps, add the jump force in the up direction
             if (isJumping)
             {
+                GetComponent<AudioSource>().PlayOneShot(jumpSound, 1);
                 characterRB.AddForce(Vector2.up * jumpForce, ForceMode.Impulse);
                 isJumping = false;
             }
